@@ -1,0 +1,47 @@
+<ng-template #rt let-r="result" let-t="term">
+    <span class="path" *ngFor="let p of r.path ; last as isLast">
+        <span [ngClass]="{'last': isLast}">{{p}}</span>
+        <i *ngIf="!isLast" class="fa fa-angle-right" aria-hidden="true"></i>
+    </span>
+</ng-template>
+<br>
+<fieldset>
+    <legend>Redigera kataloger</legend>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
+        </div>
+        <input 
+            id="typeahead-template"
+            type="text"
+            class="form-control"
+            [(ngModel)]="model"
+            [ngbTypeahead]="search"
+            [resultTemplate]="rt"
+            [inputFormatter]="formatter"
+            (selectItem)="selectedItem($event)"
+            placeholder="Lägg till katalog"
+        />
+    </div>
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Kataloger</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of selectedDirectories">
+                <td><i class="fa fa-folder text-primary" aria-hidden="true"></i>&nbsp;<a href="#" class="folder">{{item.name}}</a></td>
+                <td>
+                    <button type="button" class="close text-danger" aria-label="Close" (click)="removeDirectory(item)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary" [disabled]="!hasChanged">Spara</button>
+    <button (click)="resetSelected()" class="btn" [style.visibility]="hasChanged ? 'visible' : 'hidden'">Återställ</button>
+</fieldset>

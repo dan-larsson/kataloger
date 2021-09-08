@@ -1,0 +1,27 @@
+.path {
+    
+    font-weight: 200;
+}
+
+.active .path {
+    color: #FFF;
+}
+
+
+.path i {
+    margin: 0 .2em;
+    
+}
+
+.active .path i {
+    color: #FFF!important;
+}
+
+.path .last {
+    font-weight: 400;
+}
+
+.folder {
+    font-size: .9em;
+}
+
